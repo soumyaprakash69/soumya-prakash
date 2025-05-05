@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sentiment Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212; /* Dark background */
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #e0e0e0; /* Light text for dark background */
+    }
+    
+    .container {
+      background-color: rgba(30, 30, 30, 0.95); /* Dark container */
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 255, 0, 0.2); /* Green glow */
+      padding: 30px;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+    }
+    
+    h1 {
+      color: #4ade80; /* Green heading */
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(74, 222, 128, 0.5); /* Green glow effect */
+    }
+    
+    textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #2d2d2d;
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      resize: none;
+      font-family: inherit;
+      box-sizing: border-box;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    textarea:focus {
+      outline: none;
+      border-color: #4ade80; /* Green border on focus */
+      box-shadow: 0 0 10px rgba(74, 222, 128, 0.5); /* Green glow effect */
+    }
+    
+    .btn {
+      background-color: #4ade80; /* Green button */
+      color: #121212; /* Dark text on button */
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .btn:hover {
+      background-color: #22c55e; /* Darker green on hover */
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(74, 222, 128, 0.7); /* Stronger green glow */
+    }
+    
+    .result {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #2d2d2d; /* Slightly lighter than container */
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(74, 222, 128, 0.3);
+    }
+    
+    .sentiment {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #4ade80; /* Green text */
+    }
+    
+    .emoji {
+      font-size: 60px;
+      margin: 10px 0;
+      animation: pulse 1.5s infinite;
+      text-shadow: 0 0 15px currentColor; /* Glow effect based on emoji color */
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.1); filter: brightness(1.2); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+    
+    .positive { color: #4ade80; } /* Green */
+    .negative { color: #f87171; } /* Red */
+    .neutral { color: #94a3b8; } /* Gray-blue */
+    .mixed { color: #fbbf24; } /* Yellow */
+    .unknown { color: #a0aec0; } /* Gray */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sentiment Analyzer</h1>
+    <form method="post">
+      <textarea name="text" rows="5" placeholder="Enter your text here..."></textarea>
+      <button type="submit" class="btn">Analyze Sentiment</button>
+    </form>
+    
+    {% if sentiment %}
+    <div class="result">
+      <div class="sentiment">Sentiment: {{ sentiment }}</div>
+      <div class="emoji {% if sentiment == 'POSITIVE' %}positive{% elif sentiment == 'NEGATIVE' %}negative{% elif sentiment == 'NEUTRAL' %}neutral{% elif sentiment == 'MIXED' %}mixed{% else %}unknown{% endif %}">
+        {% if sentiment == 'POSITIVE' %}
+          😊
+        {% elif sentiment == 'NEGATIVE' %}
+          😞
+        {% elif sentiment == 'NEUTRAL' %}
+          😐
+        {% elif sentiment == 'MIXED' %}
+          😕
+        {% else %}
+          ❓
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
